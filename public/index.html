@@ -45,7 +45,59 @@
           "/static/sdk/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "sphere-engine-compilers-jssdk");
+      // making sure the widget is ready to use
+      SEC.ready = function (e) {
+        "loading" != document.readyState && "interactive" != document.readyState
+          ? e()
+          : window.addEventListener("load", e);
+      };
+
+      // after the widger has been loaded
+      SEC.ready(function () {
+        var afterSendSubmission = function (data) {
+          console.log("Submitting result", data.submissionId);
+          $("#result");
+          const result = document.getElementById("#result");
+          result
+            .append("> submissionId: " + data.submissionId + "<br>")
+            .append("> submissionId: " + data.submissionId + "<br>")
+            .append("> apiSubmissionId: " + data.apiSubmissionId + "<br><br>");
+        };
+        var SECWidget = SEC.widget("58da4c9cd8e023cfeb6e4abd4edd2c08");
+        SECWidget.config({
+          code: {
+            compiler: 99,
+            source:
+              "print('Welcome to PlatformX - Online Coding Session')\n\nprint('Before making a submission make sure to test your code on multiple inputs')\n\nprint('HINT--To get input value from given inputs in PYTHON, use raw_input()')\n\nprint('Good Luck for the test')",
+            input: "",
+          },
+        });
+
+        var beforeSendSubmission = function (data) {
+          console.log("Data is", data);
+          $("#result")
+            .html("")
+            .append(
+              "> submissionLanguage: " + data.submissionLanguage + "<br><br>"
+            )
+            .append(
+              "> submissionInput: <br>" + data.submissionInput + "<br><br>"
+            )
+            .append(
+              "> submissionSource: <br>" + data.submissionSource + "<br><br>"
+            );
+          return true;
+        };
+        // SECWidget.events.subscribe(
+        //   "beforeSendSubmission",
+        //   beforeSendSubmission
+        // );
+
+        SECWidget.events.subscribe("afterSendSubmission", afterSendSubmission);
+      });
     </script>
+
+    <!-- PROBLEMS SCRIPT  -->
 
     <div id="root"></div>
     <!--
