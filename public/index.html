@@ -24,6 +24,30 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <!-- bootstrap cdn  -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
     <title>React App</title>
   </head>
   <body>
@@ -52,14 +76,44 @@
           : window.addEventListener("load", e);
       };
 
+      var submissionID = null;
+      var apiSubmissionID = null;
+
+      const handleCodeSubmission = async () => {
+        const url = "http://127.0.0.1:8000/api/submission/";
+        const token =
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM4NjI1Nzk4LCJqdGkiOiI5MTY4YWI1ODIwODM0NjIxODMzMTRkZDE1ZWIzYjU3YSIsInVzZXJfaWQiOiI1NmU1M2M1MS0xOTBmLTRhYTktYjljZS03NzdmOTNkYTRkMDcifQ.Xbr9lh_eceEUaue2ARosib7RiplMivylppipzdpaAg4";
+        const response = await fetch(url, {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: {
+            fyp_id: "15383966-2043-4899-9a31-bf2e75616316",
+            submission_id: data.apiSubmissionId,
+          },
+        });
+        const data = await response.json();
+        console.log("Resposne data is", data);
+      };
       // after the widger has been loaded
       SEC.ready(function () {
         var afterSendSubmission = function (data) {
-          console.log("Submitting result", data.submissionId);
+          console.log(data.submissionId);
+          console.log(data.apiSubmissionId);
+          submissionID = data.submissionID;
+          apiSubmissionID = data.apiSubmissionID;
+
+          // make api call
+          // handleCodeSubmission();
           $("#result");
           const result = document.getElementById("#result");
           result
-            .append("> submissionId: " + data.submissionId + "<br>")
             .append("> submissionId: " + data.submissionId + "<br>")
             .append("> apiSubmissionId: " + data.apiSubmissionId + "<br><br>");
         };
@@ -67,14 +121,12 @@
         SECWidget.config({
           code: {
             compiler: 99,
-            source:
-              "print('Welcome to PlatformX - Online Coding Session')\n\nprint('Before making a submission make sure to test your code on multiple inputs')\n\nprint('HINT--To get input value from given inputs in PYTHON, use raw_input()')\n\nprint('Good Luck for the test')",
+            source: "print('Welcome to PlatformX - Online Coding Session')",
             input: "",
           },
         });
 
         var beforeSendSubmission = function (data) {
-          console.log("Data is", data);
           $("#result")
             .html("")
             .append(
