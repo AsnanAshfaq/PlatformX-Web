@@ -79,28 +79,6 @@
       var submissionID = null;
       var apiSubmissionID = null;
 
-      const handleCodeSubmission = async () => {
-        const url = "http://127.0.0.1:8000/api/submission/";
-        const token =
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM4NjI1Nzk4LCJqdGkiOiI5MTY4YWI1ODIwODM0NjIxODMzMTRkZDE1ZWIzYjU3YSIsInVzZXJfaWQiOiI1NmU1M2M1MS0xOTBmLTRhYTktYjljZS03NzdmOTNkYTRkMDcifQ.Xbr9lh_eceEUaue2ARosib7RiplMivylppipzdpaAg4";
-        const response = await fetch(url, {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: {
-            fyp_id: "15383966-2043-4899-9a31-bf2e75616316",
-            submission_id: data.apiSubmissionId,
-          },
-        });
-        const data = await response.json();
-        console.log("Resposne data is", data);
-      };
       // after the widger has been loaded
       SEC.ready(function () {
         var afterSendSubmission = function (data) {
@@ -109,13 +87,15 @@
           submissionID = data.submissionID;
           apiSubmissionID = data.apiSubmissionID;
 
-          // make api call
-          // handleCodeSubmission();
-          $("#result");
-          const result = document.getElementById("#result");
-          result
-            .append("> submissionId: " + data.submissionId + "<br>")
-            .append("> apiSubmissionId: " + data.apiSubmissionId + "<br><br>");
+          // store id in local storage
+          localStorage.setItem("api_submission_id", data.apiSubmissionId);
+          localStorage.setItem("submission_id", data.submissionId);
+
+          // $("#result");
+          // const result = document.getElementById("#result");
+          // result
+          //   .append("> submissionId: " + data.submissionId + "<br>")
+          //   .append("> apiSubmissionId: " + data.apiSubmissionId + "<br><br>");
         };
         var SECWidget = SEC.widget("58da4c9cd8e023cfeb6e4abd4edd2c08");
         SECWidget.config({
@@ -125,25 +105,6 @@
             input: "",
           },
         });
-
-        var beforeSendSubmission = function (data) {
-          $("#result")
-            .html("")
-            .append(
-              "> submissionLanguage: " + data.submissionLanguage + "<br><br>"
-            )
-            .append(
-              "> submissionInput: <br>" + data.submissionInput + "<br><br>"
-            )
-            .append(
-              "> submissionSource: <br>" + data.submissionSource + "<br><br>"
-            );
-          return true;
-        };
-        // SECWidget.events.subscribe(
-        //   "beforeSendSubmission",
-        //   beforeSendSubmission
-        // );
 
         SECWidget.events.subscribe("afterSendSubmission", afterSendSubmission);
       });

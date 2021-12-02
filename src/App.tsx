@@ -7,7 +7,7 @@ import Header from "./Components/Header";
 import Home from "./Home";
 import SignIn from "./SignIn";
 function App() {
-  const [Problem, setProblem] = useState<any>();
+  const [Problem, setProblem] = useState<any>({});
   const [loading, setloading] = useState(true);
 
   const getDate = () => {
@@ -16,7 +16,12 @@ function App() {
     axios
       .get("/api/test/15383966-2043-4899-9a31-bf2e75616316/")
       .then((response) => {
-        setProblem(response.data);
+        setProblem(() => {
+          return {
+            name: "Palindrome",
+            description: "Write code for palindrome",
+          };
+        });
         setloading(false);
       })
       .catch((error) => {
@@ -29,18 +34,19 @@ function App() {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/editor"
-            element={<Editor name={"Sample Test"} description={"Wrong test"} />}
-          />
-          <Route path="/signin" element={<SignIn />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/editor"
+          element={
+            <Editor name={Problem.name} description={Problem.description} />
+          }
+        />
+
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

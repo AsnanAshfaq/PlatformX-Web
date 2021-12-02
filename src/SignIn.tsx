@@ -1,11 +1,35 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from "./Utils/Axios";
 function SignIn() {
   const [Input, setInput] = useState({
     email: { value: "", error: "" },
     password: { value: "", error: "" },
   });
+
+  const handleSignIn = () => {
+    // make axios call
+
+    const data = {
+      email: Input.email.value,
+      password: Input.password.value,
+    };
+    axios
+      .post("/user/signin/", {
+        email: Input.email.value,
+        password: Input.password.value,
+      })
+      .then((response) => {
+        console.log("Response is", response.data);
+      })
+      .catch((error: any) => {
+        if (error.response) {
+          alert(error.response.data.error);
+        }
+        return error.response;
+      });
+  };
   return (
     <div className="container-fluid" style={{ height: 600 }}>
       <div className="row d-flex">
@@ -13,7 +37,9 @@ function SignIn() {
         <div className="col-lg-6 col-xl-6 col-md-10 col-sm-10 col-xs-10">
           <div className="row d-flex flex-column justify-content-center align-items-center w-100 m-0 p-0">
             <div className="col d-flex  justify-content-center align-items-center pt-4 w-100">
-              <h1 style={{ userSelect: "none", color: "#a6b0ba" }}>PlatformX</h1>
+              <h1 style={{ userSelect: "none", color: "#a6b0ba" }}>
+                PlatformX
+              </h1>
             </div>
 
             <div
@@ -21,7 +47,10 @@ function SignIn() {
               style={{ height: 500 }}
             >
               <Formik
-                initialValues={{ email: "", password: "" }}
+                initialValues={{
+                  email: Input.email.value,
+                  password: Input.password.value,
+                }}
                 validate={(values) => {
                   const errors = {};
 
@@ -40,19 +69,7 @@ function SignIn() {
                   return errors;
                 }}
                 onSubmit={async (values, { setSubmitting }) => {
-                  // handle sign in
-                  //   const result = await handeSignIn(
-                  //     values.email,
-                  //     values.password
-                  //   );
-                  //   if (result === "Successfull") {
-                  // successfully signed in
-                  // go to home page
-                  // history.replace("/");
-                  //   } else {
-                  //     alert(result.message);
-                  //   }
-                  //   setSubmitting(false);
+                  handleSignIn();
                 }}
               >
                 {({ isSubmitting }) => (
