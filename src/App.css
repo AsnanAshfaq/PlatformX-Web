@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -7,14 +7,9 @@ html,
 body,
 #root {
   height: 100%;
-  /* padding: 0; */
-  /* margin: 0; */
   background-color: #272822;
 }
 
-.App {
-  height: 100%;
-}
 
 .App-logo {
   height: 40vmin;
@@ -49,4 +44,14 @@ body,
   to {
     transform: rotate(360deg);
   }
+} */
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #272822;
+}
+.App {
+  height: 100%;
 }
