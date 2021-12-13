@@ -1,13 +1,15 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "../Components/Header";
 import axios from "../Utils/Axios";
-type props = {
-  name: string;
-  description: string;
-};
-const Editor: FC<props> = ({ name, description }) => {
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 1200); // 10 minutes timer
+import { Routes, Route, useParams } from "react-router-dom";
+
+type props = {};
+
+const Editor: FC<props> = ({}) => {
+  let params = useParams();
+
+  const [loading, setloading] = useState(false);
+  const [data, setdata] = useState<any>({});
   const handleSubmit = () => {
     // get id from local storage
     const api_submission_id = localStorage.getItem("api_submission_id");
@@ -29,24 +31,44 @@ const Editor: FC<props> = ({ name, description }) => {
       });
   };
 
+  useEffect(() => {
+    console.log(params.id);
+    axios
+      .get(`/api/test/${params.id}/`)
+      .then((response) => {
+        if (response.status === 200) {
+          setdata(response.data);
+        }
+        console.log("Response is", response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          // alert(params.id);
+        }
+        return error.response;
+      });
+  }, []);
   return (
     <div className="App container-fluid">
       <Header />
+
       <div style={{ marginLeft: 0 }}>
         <h4 style={{ color: "white" }}>Problem</h4>
-        <h6 style={{ color: "#98a1a6", fontSize: 22 }}>Tower of Hanoi</h6>
+        <h6 style={{ color: "#98a1a6", fontSize: 22 }}>{data.name}</h6>
+      </div>
+      <div
+        style={{
+          alignItems: "center",
+          justifyItems: "center",
+        }}
+      >
+        <p style={{ color: "white" }}>Last Date</p>
+        <p style={{ color: "white" }}>
+          {new Date(data.end_date).toDateString()}
+        </p>
       </div>
       <div style={{ marginLeft: 20 }}>
-        <p style={{ color: "#9ba5ab" }}>
-          There are three towers. The objective of the game is to move all the
-          disks over to tower #3, but you can't place a larger disk onto a
-          smaller disk. To play the game or learn more about the Tower of Hanoi,
-          check the Resources tab. Create a function that takes a number discs
-          as an argument and returns the minimum amount of steps needed to
-          complete the game. Examples towerHanoi(3) ➞ 7 towerHanoi(5) ➞ 31
-          towerHanoi(0) ➞ 0 Notes The amount of discs is always a positive
-          integer. 1 disc can be changed per move.
-        </p>
+        <p style={{ color: "#9ba5ab" }}>{data.description}</p>
       </div>
       <div className="d-flex flex-row-reverse bd-highlight">
         <button

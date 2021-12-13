@@ -38,12 +38,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/editor"
-          element={
-            <Editor name={Problem.name} description={Problem.description} />
-          }
-        />
+        <Route path="/editor/:id" element={<Editor />} />
 
         <Route path="/signin" element={<SignIn />} />
       </Routes>

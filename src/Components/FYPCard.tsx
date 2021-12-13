@@ -1,16 +1,19 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type props = {
   data: any;
 };
 const FYPCard: FC<props> = ({ data }) => {
+  let navigate = useNavigate();
+
   const handlePageChange = () => {
-    console.log("Page change is");
+    navigate(`/editor/${data.id}`);
   };
   return (
-    <div className="d-flex justify-content-start">
+    <div className="d-flex justify-content-start mt-4">
       <div className="card" style={{ backgroundColor: "#1b1c17", width: 500 }}>
         <div className="row d-flex" style={{ flex: 1, marginLeft: 10 }}>
           <div
@@ -41,7 +44,9 @@ const FYPCard: FC<props> = ({ data }) => {
             }}
           >
             <h4 style={{ color: "white" }}>Netsol</h4>
-            <p style={{ color: "white" }}>{new Date().toDateString()}</p>
+            <p style={{ color: "white" }}>
+              {new Date(data.created_at).toLocaleDateString()}
+            </p>
           </div>
         </div>
         <div className="card-body">
@@ -49,7 +54,7 @@ const FYPCard: FC<props> = ({ data }) => {
             className="card-title"
             style={{ color: "white", textAlign: "center" }}
           >
-            Card title
+            {data.description}
           </h5>
 
           <div className="d-flex justify-content-end">
@@ -58,9 +63,7 @@ const FYPCard: FC<props> = ({ data }) => {
               className="btn btn-success"
               onClick={handlePageChange}
             >
-              <Link to="/editor" style={{ color: "white" }}>
-                Go for Test
-              </Link>
+              Go for Test
             </button>
           </div>
         </div>
