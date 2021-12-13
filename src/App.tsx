@@ -6,40 +6,24 @@ import Editor from "./Pages/Editor";
 import Header from "./Components/Header";
 
 import Home from "./Pages/Home";
-import SignIn from "./SignIn";
+import SignIn from "./Pages/SignIn";
 function App() {
   const [Problem, setProblem] = useState<any>({});
   const [loading, setloading] = useState(true);
 
-  const getDate = () => {
-    setloading(true);
-    // get test
-    axios
-      .get("/api/test/15383966-2043-4899-9a31-bf2e75616316/")
-      .then((response) => {
-        setProblem(() => {
-          return {
-            name: "Palindrome",
-            description: "Write code for palindrome",
-          };
-        });
-        setloading(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        setloading(false);
-      });
+  const isLoggedIn = () => {
+    return localStorage.getItem("access_token") !== ""
+      ? true
+      : localStorage.getItem("access_token") !== null
+      ? true
+      : false;
   };
-  useEffect(() => {
-    getDate();
-  }, []);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/editor/:id" element={<Editor />} />
-
         <Route path="/signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter>

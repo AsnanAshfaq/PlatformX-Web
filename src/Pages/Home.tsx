@@ -32,7 +32,9 @@ function Home() {
     <div className="App container-fluid">
       <Header />
       <div className="row">
-        <div className="col-2">
+        <div className="col-1" />
+
+        <div className="col-2 mt-4">
           <div className="accordion" id="accordionExample">
             <div
               className="card"
@@ -50,25 +52,15 @@ function Home() {
                     aria-controls="collapseOne"
                     style={{ color: "white" }}
                   >
-                    List
+                    My FYP's
                   </button>
                 </h2>
-              </div>
-
-              <div
-                id="collapseOne"
-                className="collapse show"
-                aria-labelledby="headingOne"
-                data-parent="#accordionExample"
-              >
-                <div className="card-body">
-                  <p style={{ color: "white" }}>View My FYP's</p>
-                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-10 p-0 m-0">
+        <div className="col-1" />
+        <div className="col-8 p-0 m-0 ">
           {!loading ? (
             data.map((item: any) => {
               if (item.is_applied) {

@@ -8,13 +8,22 @@ type props = {
 };
 const FYPCard: FC<props> = ({ data }) => {
   let navigate = useNavigate();
+  console.log("data is", data);
 
   const handlePageChange = () => {
     navigate(`/editor/${data.id}`);
   };
   return (
     <div className="d-flex justify-content-start mt-4">
-      <div className="card" style={{ backgroundColor: "#1b1c17", width: 500 }}>
+      <div
+        className="card"
+        style={{
+          backgroundColor: "#1b1c17",
+          width: 500,
+          paddingLeft: 20,
+          paddingTop: 10,
+        }}
+      >
         <div className="row d-flex" style={{ flex: 1, marginLeft: 10 }}>
           <div
             style={{
@@ -24,7 +33,7 @@ const FYPCard: FC<props> = ({ data }) => {
             }}
           >
             <img
-              src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+              src={data.organization.user.profile_image.path}
               className="card-img-top"
               style={{
                 borderRadius: 50,
@@ -45,17 +54,23 @@ const FYPCard: FC<props> = ({ data }) => {
           >
             <h4 style={{ color: "white" }}>Netsol</h4>
             <p style={{ color: "white" }}>
-              {new Date(data.created_at).toLocaleDateString()}
+              {new Date(data.created_at).toDateString()}
             </p>
           </div>
         </div>
         <div className="card-body">
-          <h5
+          <h3
+            className="card-title"
+            style={{ color: "white", textAlign: "center" }}
+          >
+            {data.name}
+          </h3>
+          <p
             className="card-title"
             style={{ color: "white", textAlign: "center" }}
           >
             {data.description}
-          </h5>
+          </p>
 
           <div className="d-flex justify-content-end">
             <button
@@ -63,7 +78,7 @@ const FYPCard: FC<props> = ({ data }) => {
               className="btn btn-success"
               onClick={handlePageChange}
             >
-              Go for Test
+              Appear for Test
             </button>
           </div>
         </div>
