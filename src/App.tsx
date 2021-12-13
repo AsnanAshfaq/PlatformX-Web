@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "./Utils/Axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Editor from "./Editor";
+import Editor from "./Pages/Editor";
 import Header from "./Components/Header";
-import Home from "./Home";
+
+import Home from "./Pages/Home";
 import SignIn from "./SignIn";
 function App() {
   const [Problem, setProblem] = useState<any>({});

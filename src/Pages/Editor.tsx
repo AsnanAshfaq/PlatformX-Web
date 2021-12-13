@@ -1,13 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
-import "./App.css";
-import axios from "./Utils/Axios";
-import { useTimer } from "react-timer-hook";
-import Header from "./Components/Header";
-
-type Props = {
-  expiryTimestamp: any;
-};
-
+import React, { FC } from "react";
+import Header from "../Components/Header";
+import axios from "../Utils/Axios";
 type props = {
   name: string;
   description: string;
@@ -39,6 +32,10 @@ const Editor: FC<props> = ({ name, description }) => {
   return (
     <div className="App container-fluid">
       <Header />
+      <div style={{ marginLeft: 0 }}>
+        <h4 style={{ color: "white" }}>Problem</h4>
+        <h6 style={{ color: "#98a1a6", fontSize: 22 }}>Tower of Hanoi</h6>
+      </div>
       <div style={{ marginLeft: 20 }}>
         <p style={{ color: "#9ba5ab" }}>
           There are three towers. The objective of the game is to move all the
