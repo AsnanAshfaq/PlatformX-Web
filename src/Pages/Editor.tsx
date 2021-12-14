@@ -16,6 +16,7 @@ const Editor: FC<props> = ({}) => {
     const submission_id = localStorage.getItem("submission_id");
 
     const { id } = params;
+
     axios
       .post("/api/submission/", {
         fyp_id: id,
@@ -33,7 +34,6 @@ const Editor: FC<props> = ({}) => {
   };
 
   useEffect(() => {
-    console.log(params.id);
     axios
       .get(`/api/test/${params.id}/`)
       .then((response) => {
@@ -136,7 +136,8 @@ const Editor: FC<props> = ({}) => {
       <div
         className="sec-widget"
         data-theme="dark"
-        data-widget="8f636cd251c342cf1c4352ec520701f7"
+        data-widget="4892176c6190c8bc39acc62898726d6a"
+        data-id="4892176c6190c8bc39acc62898726d6a"
       ></div>
     </div>
   );

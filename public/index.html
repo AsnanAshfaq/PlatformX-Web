@@ -52,7 +52,6 @@
     <title>React App</title>
   </head>
   <body>
-    <!-- SPHERE ENGINE COMPILER SCRIPT  -->
     <script>
       SEC_HTTPS = true;
       SEC_BASE = "compilers.widgets.sphere-engine.com";
@@ -83,14 +82,13 @@
       // after the widger has been loaded
       SEC.ready(function () {
         var afterSendSubmission = function (data) {
-          submissionID = data.submissionID;
-          apiSubmissionID = data.apiSubmissionID;
-
+          const submissionID = data.submissionId;
+          const apiSubmissionID = data.apiSubmissionId;
           // store id in local storage
-          localStorage.setItem("api_submission_id", data.apiSubmissionId);
-          localStorage.setItem("submission_id", data.submissionId);
+          localStorage.setItem("api_submission_id", apiSubmissionID);
+          localStorage.setItem("submission_id", submissionID);
         };
-        var SECWidget = SEC.widget("8f636cd251c342cf1c4352ec520701f7");
+        var SECWidget = SEC.widget("4892176c6190c8bc39acc62898726d6a");
         SECWidget.config({
           code: {
             compiler: 99,

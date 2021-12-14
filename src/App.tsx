@@ -20,6 +20,18 @@ function App() {
   };
 
   return (
+    // <div
+    //   className="sec-widget"
+    //   data-widget="4892176c6190c8bc39acc62898726d6a"
+    //   data-id="4892176c6190c8bc39acc62898726d6a"
+    // ></div>
+    // <div
+    //   className="sec-widget"
+    //   data-theme="dark"
+    //   data-widget="4892176c6190c8bc39acc62898726d6a"
+    //   data-id="4892176c6190c8bc39acc62898726d6a"
+    // ></div>
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />

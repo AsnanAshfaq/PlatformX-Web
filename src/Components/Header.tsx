@@ -1,15 +1,15 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { BrowserRouter as Router, Route, useNavigate } from "react-router-dom";
+// import { BrowserRouter as Router, Route, useNavigate } from "react-router-dom";
 
 function Header() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const handleSignOut = () => {
     console.log("Handling sign out");
 
     localStorage.setItem("access_token", "");
-    navigate("/signin");
+    // navigate("/signin");
   };
 
   const moveToHome = () => {};
