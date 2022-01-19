@@ -18,7 +18,6 @@ function SignIn() {
       email: Input.email.value,
       password: Input.password.value,
     };
-    console.log("Data is", data);
     axios
       .post("/user/signin/", data)
       .then((response) => {

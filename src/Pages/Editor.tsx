@@ -39,7 +39,6 @@ const Editor: FC<props> = ({}) => {
       .then((response) => {
         if (response.status === 200) {
           setdata(response.data);
-          console.log("Test data is", response.data);
         }
       })
       .catch((error) => {
@@ -133,11 +132,13 @@ const Editor: FC<props> = ({}) => {
           ))}
       </div>
 
+
       <div
         className="sec-widget"
         data-theme="dark"
-        data-widget="4892176c6190c8bc39acc62898726d6a"
+        data-widget="03caa0a9d1664333a61f74afcfbeac1c"
         data-id="4892176c6190c8bc39acc62898726d6a"
+
       ></div>
     </div>
   );

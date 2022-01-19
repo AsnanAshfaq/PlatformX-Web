@@ -10,12 +10,13 @@ function Home() {
   const getData = async () => {
     setloading(true);
     axios
-      .get("/api/fyps/")
+      .get("/api/fyps/") 
       .then((response) => {
         setloading(false);
         setdata(response.data);
       })
       .catch((error) => {
+
         setloading(false);
         if (error.response) {
           alert(error.response);
